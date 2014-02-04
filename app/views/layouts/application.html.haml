@@ -6,7 +6,12 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    = link_to "Steam", user_omniauth_authorize_path(:steam)
+    %h1 Auraxis Governed
+    %p PlanetSide 2 leader assistant tool.
+    - if user_signed_in?
+      = link_to "Log out", destroy_user_session_path
+    - else
+      = link_to "Log in with Steam", user_omniauth_authorize_path(:steam)
 
     - flash.each do |name, msg|
       - if msg.is_a?(String)
