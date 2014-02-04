@@ -1,4 +1,6 @@
 AuraxisGoverned::Application.routes.draw do
+  resources :missions
+
   get "test/index"
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }

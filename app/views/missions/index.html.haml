@@ -1,0 +1,27 @@
+%h1 Listing missions
+
+%table
+  %tr
+    %th Name
+    %th Status
+    %th User
+    %th Server
+    %th Faction
+    %th
+    %th
+    %th
+
+  - @missions.each do |mission|
+    %tr
+      %td= mission.name
+      %td= mission.status
+      %td= mission.user_id
+      %td= mission.server
+      %td= mission.faction
+      %td= link_to 'Show', mission
+      %td= link_to 'Edit', edit_mission_path(mission)
+      %td= link_to 'Destroy', mission, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Mission', new_mission_path
