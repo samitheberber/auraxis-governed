@@ -23,6 +23,8 @@ gem 'omniauth-steam'
 
 gem 'foreigner'
 
+gem 'httparty'
+
 group :production do
   gem 'rails_12factor'
 end
