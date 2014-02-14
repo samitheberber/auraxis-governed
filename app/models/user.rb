@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
-      user.name = auth.info.name   # assuming the user model has a name
+      user.name = auth.info.nickname
       #user.image = auth.info.image # assuming the user model has an image
       user.save!
     end

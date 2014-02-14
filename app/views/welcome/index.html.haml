@@ -1,2 +1,10 @@
 %h2 Join one of these missions
 %p Currently no open missions...
+
+- if user_signed_in?
+  %h2 My missions
+  %ul
+    - current_user.missions.each do |mission|
+      %li= link_to mission, mission
+
+  %p= link_to "Create new mission", new_mission_path

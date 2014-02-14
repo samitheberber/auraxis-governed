@@ -9,7 +9,9 @@
     %h1 Auraxis Governed
     %p PlanetSide 2 leader assistant tool.
     - if user_signed_in?
-      = link_to "Log out", destroy_user_session_path
+      %p
+        = current_user.name
+        = link_to "Log out", destroy_user_session_path
     - else
       = link_to "Log in with Steam", user_omniauth_authorize_path(:steam)
 
