@@ -1,20 +1,36 @@
 %p#notice= notice
 
+%h2= @mission.name
+
 %p
-  %b Name:
-  = @mission.name
-%p
-  %b Status:
   = @mission.status
-%p
-  %b User:
-  = @mission.user_id
+  mission by
+  = @mission.user.name
+
 %p
   %b Server:
   = @mission.server
 %p
   %b Faction:
   = @mission.faction
+
+%h3 Troopers
+
+- if @mission.characters.empty?
+  %p No troopers yet
+- else
+
+  - PS.get_characters_by_ids(@mission.characters.map(&:character_id)).each do |character|
+    %p #{character.name} BR#{character.battle_rank} ;; A:#{character.aerospace}|M:#{character.mechanized}|I:#{character.infantry}
+
+= form_for @trooper do |f|
+  = f.hidden_field :mission_id
+  = f.fields_for :character do |c|
+    .field
+      = c.label :name
+      = c.text_field :name
+  .actions
+    = f.submit 'Save'
 
 = link_to 'Edit', edit_mission_path(@mission)
 \|

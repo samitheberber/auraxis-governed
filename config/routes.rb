@@ -1,4 +1,8 @@
 AuraxisGoverned::Application.routes.draw do
+  resources :characters
+
+  resources :troopers
+
   resources :missions
 
   get "test/index"

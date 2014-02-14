@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140129202423) do
+ActiveRecord::Schema.define(version: 20140214192230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "characters", force: true do |t|
+    t.string   "name"
+    t.string   "character_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "missions", force: true do |t|
     t.string   "name"
@@ -22,6 +29,13 @@ ActiveRecord::Schema.define(version: 20140129202423) do
     t.integer  "user_id"
     t.string   "server"
     t.string   "faction"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "troopers", force: true do |t|
+    t.integer  "mission_id"
+    t.integer  "character_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,5 +51,8 @@ ActiveRecord::Schema.define(version: 20140129202423) do
   add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
 
   add_foreign_key "missions", "users", name: "missions_user_id_fk"
+
+  add_foreign_key "troopers", "characters", name: "troopers_character_id_fk"
+  add_foreign_key "troopers", "missions", name: "troopers_mission_id_fk"
 
 end

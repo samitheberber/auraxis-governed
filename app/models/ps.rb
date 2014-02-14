@@ -32,12 +32,16 @@ module PS
     end
   end
 
-  def self.get_characters_by_name(names)
-    response = HTTParty.get "#{API_URL}/character_name/?#{names.map(&:downcase).map{|n| "name.first_lower=#{n}"}.join("&")}&c:show=character_id&c:limit=#{names.length}"
-    get_characters_by_id response.parsed_response["character_name_list"].map{|c| c["character_id"]}
+  def self.get_character_id_by_name(name)
+    response = HTTParty.get "#{API_URL}/character_name/?name.first_lower=#{name.downcase}&c:show=character_id"
+    response.parsed_response["character_name_list"].first["character_id"]
   end
 
-  def self.get_characters_by_id(ids)
+  def self.get_characters_by_name(names)
+    get_characters_by_id get_character_ids_by_name(names)
+  end
+
+  def self.get_characters_by_ids(ids)
     response = HTTParty.get "#{API_URL}/character/?character_id=#{ids.join(",")}&c:resolve=currency,item_full"
     response.parsed_response["character_list"].map{|u| Character.new(u)}
   end

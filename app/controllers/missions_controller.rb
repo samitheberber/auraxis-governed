@@ -12,6 +12,7 @@ class MissionsController < ApplicationController
   # GET /missions/1
   # GET /missions/1.json
   def show
+    @trooper = @mission.troopers.new
   end
 
   # GET /missions/new

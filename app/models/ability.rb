@@ -10,6 +10,7 @@ class Ability
   def declare_mission(user)
     can :read, Mission
     can :create, Mission
+    can :create, Trooper, mission: { id: user.mission_ids }
     # TODO: can edit own missions
   end
 end
