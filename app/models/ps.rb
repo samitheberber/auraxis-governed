@@ -36,7 +36,7 @@ module PS
     def initialize(opts={})
       @id = opts["item_id"]
       @type_id = opts["item_type_id"]
-      @name = opts["name"]["en"]
+      @name = opts["name"]["en"] rescue "(unknown)"
     end
   end
 
@@ -62,6 +62,6 @@ module PS
   def self.get_friends_of(ids)
     return [] if ids.empty?
     response = HTTParty.get "#{API_URL}/characters_friend/?character_id=#{ids.join(",")}&c:resolve=character_name"
-    response.parsed_response["characters_friend_list"].map{|u| u["friend_list"].map{|f| f["name"]["first"]}}.flatten.uniq
+    response.parsed_response["characters_friend_list"].map{|u| u["friend_list"].map{|f| f["name"]["first"] rescue nil}}.flatten.uniq.compact
   end
 end
