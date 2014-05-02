@@ -11,3 +11,27 @@
  *= require_self
  *= require_tree .
  */
+
+body {
+  background: image-url("background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#container {
+  padding: 2em;
+  margin: 3em;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  background-color: rgba(255,255,255,0.7);
+
+  & > header {
+    text-align: center;
+
+    h1 {
+      font-size: 300%;
+    }
+  }
+}
