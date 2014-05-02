@@ -14,9 +14,9 @@
     = f.text_field :status
   .field
     = f.label :server
-    = f.text_field :server
+    = f.select :server, @servers
   .field
     = f.label :faction
-    = f.text_field :faction
+    = f.select :faction, ["VS", "NC", "TR"]
   .actions
     = f.submit 'Save'

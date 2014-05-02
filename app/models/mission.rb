@@ -11,6 +11,13 @@ class Mission < ActiveRecord::Base
   def assign_trooper name
     character = Character.find_or_create_by name
     self.characters << character
+    Rails.cache.delete("/mission/#{id}/troopers")
+  end
+
+  def troopers_data
+    Rails.cache.fetch("/mission/#{id}/troopers", expires_in: 1.minute) do
+      PS.get_characters_by_ids(self.characters.map(&:character_id))
+    end
   end
 
   def to_s

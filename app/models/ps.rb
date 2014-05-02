@@ -8,11 +8,12 @@ module PS
 
   class Character
 
-    attr_reader :id, :name, :battle_rank, :aerospace, :infantry, :mechanized, :items
+    attr_reader :id, :name, :battle_rank, :aerospace, :infantry, :mechanized, :items, :online
 
     def initialize(opts={})
       @id = opts["character_id"]
       @name = opts["name"]["first"]
+      @online = opts["online_status"] != "0"
       @battle_rank = opts["battle_rank"]["value"]
       @aerospace = opts["currency"]["aerospace"]
       @infantry = opts["currency"]["infantry"]
@@ -42,7 +43,12 @@ module PS
   end
 
   def self.get_characters_by_ids(ids)
-    response = HTTParty.get "#{API_URL}/character/?character_id=#{ids.join(",")}&c:resolve=currency,item_full"
+    response = HTTParty.get "#{API_URL}/character/?character_id=#{ids.join(",")}&c:resolve=currency,online_status,item_full"
     response.parsed_response["character_list"].map{|u| Character.new(u)}
+  end
+
+  def self.get_servers
+    response = HTTParty.get "#{API_URL}/world/?c:limit=100"
+    response.parsed_response["world_list"].map{|world| world["name"]["en"]}
   end
 end
