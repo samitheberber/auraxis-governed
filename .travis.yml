@@ -1,0 +1,10 @@
+language: ruby
+rvm: 2.0.0
+deploy:
+  provider: heroku
+  api_key:
+    secure: IcgBPodJsj56CI8ZBA5KraQIdwAQJY814Bjptx4sWy0awIx1rkJ1xZ5aSZcxH7mRLJRKDHCTtMnnifs0dkAodX4IFqNmcKpViPWZ53De8fPtp6hBh1/gYeXYjfZQq3evE/mS9dsx3SdXeWvyQs8XKtjpuLTUQLmRo5VjeePbhHc=
+  app: auraxis-governed
+  on:
+    repo: samitheberber/auraxis-governed
+  run: "rake db:migrate"
