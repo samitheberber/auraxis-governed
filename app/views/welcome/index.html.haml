@@ -1,7 +1,7 @@
 %h1 Missions
 %h2 Open missions
 
-- if @open_missions
+- unless @open_missions.empty?
   %ul
     - @open_missions.each do |mission|
       %li= link_to mission, mission

@@ -2,8 +2,15 @@ module PS
   API_URL="http://census.soe.com/get/ps2:v2/"
 
   EXTRA_ITEMS=[
+    "1", # Vehicle decoration
+    "13", # Title
     "17", # camo
+    "27", # Weapon attachment
+    "28", # Boost
+    "33", # Vehicle skill
+    "36", # Class skill
     "38", # Vehicle decoration
+    "39", # Character decoration
   ]
 
   class Character
@@ -50,5 +57,11 @@ module PS
   def self.get_servers
     response = HTTParty.get "#{API_URL}/world/?c:limit=100"
     response.parsed_response["world_list"].map{|world| world["name"]["en"]}
+  end
+
+  def self.get_friends_of(ids)
+    return [] if ids.empty?
+    response = HTTParty.get "#{API_URL}/characters_friend/?character_id=#{ids.join(",")}&c:resolve=character_name"
+    response.parsed_response["characters_friend_list"].map{|u| u["friend_list"].map{|f| f["name"]["first"]}}.flatten.uniq
   end
 end

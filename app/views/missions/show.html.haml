@@ -41,6 +41,12 @@
   .actions
     = f.submit 'Save'
 
+- unless @friends.empty?
+  %h4 Add friends of current troopers?
+
+  %p
+    - @friends.each do |friend|
+      %span= friend
 
 - if can?(:destroy, @mission)
   %p= link_to 'Cancel this mission', @mission, method: :delete, data: { confirm: 'Are you sure?' }

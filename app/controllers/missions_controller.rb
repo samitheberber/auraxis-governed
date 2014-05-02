@@ -6,6 +6,7 @@ class MissionsController < ApplicationController
 
   def show
     @trooper = @mission.troopers.new
+    @friends = PS.get_friends_of(@mission.characters.map(&:character_id)) - @mission.characters.map(&:name)
   end
 
   def new
