@@ -8,6 +8,8 @@ class Mission < ActiveRecord::Base
   validates :server, presence: true, length: { minimum: 3}
   validates :faction, presence: true, length: { minimum: 2}
 
+  scope :free_to_join, -> { where(status: "Open") }
+
   def assign_trooper name
     character = Character.find_or_create_by name
     self.characters << character

@@ -1,5 +1,12 @@
-%h2 Join one of these missions
-%p Currently no open missions...
+%h1 Missions
+%h2 Open missions
+
+- if @open_missions
+  %ul
+    - @open_missions.each do |mission|
+      %li= link_to mission, mission
+- else
+  %p Currently no open missions...
 
 - if user_signed_in?
   %h2 My missions
